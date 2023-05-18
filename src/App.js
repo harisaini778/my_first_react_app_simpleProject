@@ -22,6 +22,12 @@ function App() {
       username: username,
       age: age
     };
+    if (username.trim().length === 0 || age.trim().length === 0) {
+      return;
+    }
+    if (+age < 1) {
+      return;
+    }
     console.log(newUserDetails);
     setUserDetails(newUserDetails);
     setUsername("");
