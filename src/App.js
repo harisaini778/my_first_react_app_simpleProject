@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,Fragment} from "react";
 import './App.css';
 import ErrorModal from "./components/ErrorModal";
 import UserInputDetails from './components/UserInputDetails';
@@ -53,7 +53,7 @@ function App() {
   }
 
   return (
-    <Wrapper>
+    <Fragment>
       {error && <ErrorModal title={error.title} message={error.message} onClose={ errorHandleChange} />}
       <Card>
         <Wrapper>
@@ -69,7 +69,7 @@ function App() {
         </Wrapper>
          </Card> 
         <UserInputDetails data={userDetails} />
-      </Wrapper>
+      </Fragment>
     
   );
 }
