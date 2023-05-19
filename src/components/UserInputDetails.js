@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Card from "./Card";
 const UserInputDetails = (props) => {
 
     const [userDetails, setUserDetails] = useState([]);
@@ -15,22 +16,21 @@ const UserInputDetails = (props) => {
     }
 
     return (
-     <div className="container" style={{ marginTop: "20px", border: "1px solid black" }}>
+        <Card>
             {userDetails.map((key, index) => {
                 return (<ul id={index} className="bg bg-light"
                     style={{
                         listStyleType: "none", border: "2px solid green",
-                        marginTop: "10px"
+                        marginTop: "10px",
+                        color:"black"
                     }}>
                 <li style={{
                     marginTop:"10px",fontFamily:"monospace",fontSize:"20px"}}>
                     {key}
                 </li>
             </ul>)       
-            })}
-            
-    </div>
-   
+            })}       
+   </Card>
  )
 }
 export default UserInputDetails;

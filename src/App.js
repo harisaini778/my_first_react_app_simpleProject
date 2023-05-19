@@ -1,12 +1,15 @@
 import { useState } from "react";
 import './App.css';
+import ErrorModal from "./components/ErrorModal";
 import UserInputDetails from './components/UserInputDetails';
+import Card from "./components/Card";
 
 function App() {
 
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [userDetails, setUserDetails] = useState(null);
+  const [error, setError] = useState();
   
   const handleNameChange = (e) => {
     setUsername(e.target.value);
@@ -23,35 +26,50 @@ function App() {
       age: age
     };
     if (username.trim().length === 0 || age.trim().length === 0) {
+      setError({
+        title: "Error!",
+        message:"Name field cannot be empty,please enter a valid name."
+      })
       return;
     }
     if (+age < 1) {
+      setError(
+        {
+          title: "Error!",
+          message :"Please enter a valid age(age>1)"
+        }
+      )
       return;
     }
     console.log(newUserDetails);
     setUserDetails(newUserDetails);
-    setUsername("");
-    setAge("");
+    setUsername(null);
+    setAge(null);
+  }
+
+  const errorHandleChange = () => {
+    setError(null);
   }
 
   return (
-    <div className="outer-div container w-50">
-    <div className="inner-div container" style={{border:"1px solid black",marginTop:"10px"}}>
-      <form>
-    <div className="form-group" >
-      <label for="username"> Username :</label>
-          <input type="text" id="username" className="form-control"
-            onChange={handleNameChange} />
-        <label for="age"> Age(Years) :</label>
-          <input type="number" id="age" className="form-control"
-            onChange={handleAgeChange} />
-            <button className="btn btn-success" type="button"
-            onClick={handleSubmit}>Add User </button>
+    <div className="outer-div container">
+      {error && <ErrorModal title={error.title} message={error.message} onClose={ errorHandleChange} />}
+      <Card>
+        <div className="inner-div container">
+          <form>
+            <div className="form-group" >
+              <label htmlFor="username"> Username :</label>
+              <input type="text" id="username" className="form-control" onChange={handleNameChange} />
+              <label htmlFor="age"> Age(Years) :</label>
+              <input type="number" id="age" className="form-control" onChange={handleAgeChange} />
+              <button className="btn btn-success" type="button" onClick={handleSubmit}>Add User</button>
+            </div>
+          </form>
         </div>
-      </form>
+         </Card> 
+        <UserInputDetails data={userDetails} />
       </div>
-       <UserInputDetails data={userDetails} />
-      </div>
+    
   );
 }
 
