@@ -3,6 +3,7 @@ import './App.css';
 import ErrorModal from "./components/ErrorModal";
 import UserInputDetails from './components/UserInputDetails';
 import Card from "./components/Card";
+import Wrapper from "./components/Wrapper/Wrapper";
 
 function App() {
 
@@ -52,10 +53,10 @@ function App() {
   }
 
   return (
-    <div className="outer-div container">
+    <Wrapper>
       {error && <ErrorModal title={error.title} message={error.message} onClose={ errorHandleChange} />}
       <Card>
-        <div className="inner-div container">
+        <Wrapper>
           <form>
             <div className="form-group" >
               <label htmlFor="username"> Username :</label>
@@ -65,10 +66,10 @@ function App() {
               <button className="btn btn-success" type="button" onClick={handleSubmit}>Add User</button>
             </div>
           </form>
-        </div>
+        </Wrapper>
          </Card> 
         <UserInputDetails data={userDetails} />
-      </div>
+      </Wrapper>
     
   );
 }
