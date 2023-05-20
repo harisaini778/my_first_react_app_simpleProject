@@ -1,4 +1,4 @@
-import { useState,Fragment} from "react";
+import { useState,Fragment,useRef} from "react";
 import ReactDOM from "react-dom";
 import './App.css';
 import ErrorModal from "./components/ErrorModal";
@@ -8,33 +8,30 @@ import Wrapper from "./components/Wrapper/Wrapper";
 
 function App() {
 
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
-  const [userDetails, setUserDetails] = useState(null);
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
   const [error, setError] = useState();
+  const [userDetails, setUserDetails] = useState(null);
   
-  const handleNameChange = (e) => {
-    setUsername(e.target.value);
-  }
-
-  const handleAgeChange = (e) => {
-    setAge(e.target.value);
-  }
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(nameInputRef);
+    console.log(nameInputRef.current.value);
+    const enteredUserName = nameInputRef.current.value;
+    const enteredUserAge = ageInputRef.current.value;
     const newUserDetails = {
-      username: username,
-      age: age
+      username: enteredUserName,
+      age: enteredUserAge
     };
-    if (username.trim().length === 0 || age.trim().length === 0) {
+    if (enteredUserName.trim().length === 0 || enteredUserAge.trim().length === 0) {
       setError({
         title: "Error!",
         message:"Name field cannot be empty,please enter a valid name."
       })
       return;
     }
-    if (+age < 1) {
+    if (+enteredUserAge < 1) {
       setError(
         {
           title: "Error!",
@@ -45,8 +42,7 @@ function App() {
     }
     console.log(newUserDetails);
     setUserDetails(newUserDetails);
-    setUsername(null);
-    setAge(null);
+  
   }
 
   const errorHandleChange = () => {
@@ -64,9 +60,15 @@ function App() {
           <form>
             <div className="form-group" >
               <label htmlFor="username"> Username :</label>
-              <input type="text" id="username" className="form-control" onChange={handleNameChange} />
+
+              <input type="text" id="username" className="form-control" 
+                ref={nameInputRef} />
+              
               <label htmlFor="age"> Age(Years) :</label>
-              <input type="number" id="age" className="form-control" onChange={handleAgeChange} />
+
+              <input type="number" id="age" className="form-control"
+                ref={ageInputRef} />
+              
               <button className="btn btn-success" type="button" onClick={handleSubmit}>Add User</button>
             </div>
           </form>
