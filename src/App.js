@@ -10,6 +10,7 @@ function App() {
 
   const nameInputRef = useRef();
   const ageInputRef = useRef();
+  const collegeInputRef = useRef();
   const [error, setError] = useState();
   const [userDetails, setUserDetails] = useState(null);
   
@@ -20,11 +21,14 @@ function App() {
     console.log(nameInputRef.current.value);
     const enteredUserName = nameInputRef.current.value;
     const enteredUserAge = ageInputRef.current.value;
+    const enteredCollegeName = collegeInputRef.current.value;
     const newUserDetails = {
       username: enteredUserName,
-      age: enteredUserAge
+      age: enteredUserAge,
+      college : enteredCollegeName
     };
-    if (enteredUserName.trim().length === 0 || enteredUserAge.trim().length === 0) {
+    if (enteredUserName.trim().length === 0 || enteredUserAge.trim().length === 0
+    || enteredCollegeName.trim().length===0) {
       setError({
         title: "Error!",
         message:"Name field cannot be empty,please enter a valid name."
@@ -68,6 +72,11 @@ function App() {
 
               <input type="number" id="age" className="form-control"
                 ref={ageInputRef} />
+              
+              <label hrmlFor="college">College Name :</label>
+
+              <input type="text" id="college" className="form-control"
+                ref={ collegeInputRef} />
               
               <button className="btn btn-success" type="button" onClick={handleSubmit}>Add User</button>
             </div>
