@@ -1,4 +1,5 @@
 import { useState,Fragment} from "react";
+import ReactDOM from "react-dom";
 import './App.css';
 import ErrorModal from "./components/ErrorModal";
 import UserInputDetails from './components/UserInputDetails';
@@ -52,9 +53,12 @@ function App() {
     setError(null);
   }
 
+  const modalRoot = document.getElementById("modal-root");
+
   return (
     <Fragment>
-      {error && <ErrorModal title={error.title} message={error.message} onClose={ errorHandleChange} />}
+      {ReactDOM.createPortal(error && <ErrorModal title={error.title} message={error.message} onClose={errorHandleChange} />,
+      modalRoot)}
       <Card>
         <Wrapper>
           <form>
